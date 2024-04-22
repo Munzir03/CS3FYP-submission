@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Vitae</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        
+        body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+h1 {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #6d0404; /* Dark Red */
+    text-transform: uppercase;
+}
+
+.cv-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #6d0404; /* Dark Red */
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #6d0404; /* Dark Red */
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.section-title i {
+    margin-right: 10px;
+}
+
+
+
+p {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Customizing icons */
+.fa-call,
+.fa-graduation-cap,
+.fa-briefcase,
+.fa-tools,
+.fa-heart,
+.fa-address-book {
+    color: #6d0404; /* Dark Red */
+}
+
+/* Adding hover effect on icons */
+.section-title i:hover {
+    color: #bf0606; /* Lighter shade of red */
+}
+
+/* Adjusting spacing */
+#banner {
+    margin-bottom: 20px;
+}
+
+/* Changing background color */
+#banner-content {
+    background-color: #6d0404; /* Dark Red */
+    height: 50px;
+    border-radius: 10px;
+}
+
+.download-button {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .download-button button {
+            padding: 12px 30px;
+            background-color: #6d0404; /* Blue */
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .download-button button:hover, .download-button button:focus {
+            background-color: #0056b3; /* Darker Blue */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .download-button button:active {
+            background-color: #004085; /* Even Darker Blue */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+    
+
+    <div id="cv-section" class="cv-section">
+            <div id="banner-content">
+            
+            </div>
+
+        <h1 id="name">[Name]</h1>
+        
+        <div class="cv-section">
+            <div class="section-title"><i class="fas fa-call"></i> Contact Information</div>
+            <p id="email">[Email]</p>
+            <p id="phone">[Phone]</p>
+        </div>
+        <div class="cv-section">
+            <div class="section-title"><i class="fas fa-graduation-cap"></i> Qualifications</div>
+            <div id="qualifications-list"></div>
+            <p id="university">[University]</p>
+            <br>
+            <p id="education">[Qualification]</p>
+            <br>
+            <p id="grade">[Grade]</p>
+        </div>
+        <div class="cv-section">
+            <div class="section-title"><i class="fas fa-briefcase"></i> Work Experience</div>
+            <div id="work-experience-list"></div>
+          
+        </div>
+        <div class="cv-section">
+            <div class="section-title"><i class="fas fa-tools"></i> Skills</div>
+            <ul id="skills-list"></ul>
+            
+        </div>
+        <div class="cv-section">
+            <div class="section-title"><i class="fas fa-heart"></i> Hobbies</div>
+            <ul id="hobbies-list"></ul>
+        </div>
+        <div class="cv-section">
+            <div class="section-title"><i class="fas fa-address-book"></i> References</div>
+            <ul id="references-list"></ul>
+        </div>
+    </div>
+
+</div>
+
+    <div class="download-button">
+        <button type="button" onclick="exportPDF()">Download as PDF</button>
+    </div>
+
+</div>
+<script>
+    // Function to fetch and display work experience data
+    function fetchWorkExperience() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "experience.php", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var experienceData = JSON.parse(xhr.responseText);
+                displayWorkExperience(experienceData);
+            }
+        };
+        xhr.send();
+    }
+
+    // Function to display work experience data on the webpage
+    function displayWorkExperience(experienceData) {
+console.log('Experience Data:', experienceData); // Log the received data
+
+var workExperienceList = document.getElementById("work-experience-list");
+workExperienceList.innerHTML = "";
+
+experienceData.forEach(function(experience) {
+    console.log('Company:', experience.Company); // Log the company field for each experience
+
+    var entryDiv = document.createElement("div");
+    entryDiv.innerHTML = `
+        <h2><strong>Company:</strong>${experience.Company}</h2>
+        <p><strong>Date From:</strong> ${experience.dateFrom}</p>
+        <p><strong>Date To:</strong> ${experience.dateTo}</p>
+        <p><strong>Role:</strong> ${experience.role}</p>
+        <p><strong>Experience:</strong> ${experience.experience}</p>
+        <hr>
+    `;
+    workExperienceList.appendChild(entryDiv);
+});
+}
+
+
+    function fetchQualifications() {
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "qualifications.php", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        var qualificationsData = JSON.parse(xhr.responseText);
+        displayQualifications(qualificationsData);
+    }
+};
+xhr.send();
+}
+
+    function displayQualifications(qualificationsData) {
+var qualificationsList = document.getElementById("qualifications-list");
+qualificationsList.innerHTML = "";
+
+qualificationsData.forEach(function(qualification) {
+    var entryDiv = document.createElement("div");
+    entryDiv.innerHTML = `
+        <h2>${qualification.University}</h2>
+        <p><strong>Qualification:</strong> ${qualification.Qualification}</p>
+        <p><strong>Grade:</strong> ${qualification.Grade}</p>
+        <hr>
+    `;
+    qualificationsList.appendChild(entryDiv);
+});
+}
+
+function fetchSkills() {
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "skills.php", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        var skillsData = JSON.parse(xhr.responseText);
+        displaySkills(skillsData);
+    }
+};
+xhr.send();
+}
+
+    function displaySkills(skillsData) {
+var skillsList = document.getElementById("skills-list");
+skillsList.innerHTML = "";
+
+skillsData.forEach(function(skills) {
+    var entryDiv = document.createElement("div");
+    entryDiv.innerHTML = `
+
+        <p><strong>Skill:</strong> ${skills.skill}</p>
+        <hr>
+    `;
+    skillsList.appendChild(entryDiv);
+});
+}
+
+
+function fetchhobbies() {
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "hobbies.php", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        var hobbiesData = JSON.parse(xhr.responseText);
+        displayHobbies(hobbiesData);
+    }
+};
+xhr.send();
+}
+
+    function displayHobbies(hobbiesData) {
+var hobbiesList = document.getElementById("hobbies-list");
+hobbiesList.innerHTML = "";
+
+hobbiesData.forEach(function(hobbies) {
+    var entryDiv = document.createElement("div");
+    entryDiv.innerHTML = `
+
+        <p><strong>Hobby:</strong> ${hobbies.hobby}</p>
+        <hr>
+    `;
+    hobbiesList.appendChild(entryDiv);
+});
+}
+
+
+
+function fetchreferences() {
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "references.php", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        var referencesData = JSON.parse(xhr.responseText);
+        displayReferences(referencesData);
+    }
+};
+xhr.send();
+}
+
+    function displayReferences(referencesData) {
+var referencesList = document.getElementById("references-list");
+referencesList.innerHTML = "";
+
+referencesData.forEach(function(references) {
+    var entryDiv = document.createElement("div");
+    entryDiv.innerHTML = `
+
+        <p><strong>Reference:</strong> ${references.reference_detail}</p>
+        <hr>
+    `;
+    referencesList.appendChild(entryDiv);
+});
+}
+
+
+
+
+    // Call fetch functions when the page loads
+    window.onload = function() {
+        fetchQualifications();
+        fetchWorkExperience();
+        fetchSkills();
+        fetchhobbies();
+        fetchreferences();
+
+        
+        // Add calls to fetch other CV details if needed
+    };
+
+
+
+    // Populate CV details from URL parameters
+    document.addEventListener("DOMContentLoaded", function() {
+        // Code to populate CV details from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('name').innerText = urlParams.get('name') || '[Name]';
+        document.getElementById('email').innerText = urlParams.get('email') || '[Email]';
+        document.getElementById('phone').innerText = urlParams.get('phone') || '[Phone]';
+       
+       
+  
+    });
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+<script src="download.js"></script>
+
+</body>
+</html>
