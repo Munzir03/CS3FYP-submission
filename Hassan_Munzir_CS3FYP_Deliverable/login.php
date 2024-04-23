@@ -61,7 +61,7 @@ if(isset($_SESSION['user_logged_in'])) {
                                 <button class="nav-link pl-0 pr-0" aria-label="Go to home"><a href="index.php">Home</a></button>
                             </li>
                             <li class="nav-item">
-                                <button class="nav-link pl-0 pr-0" aria-label="Switch to My Resumes page"><a href="resumes.php">Create a Resume</a></button>
+                                <button class="nav-link pl-0 pr-0" aria-label="Switch to My Resumes page"><a href="builder.php">Create a Resume</a></button>
                             </li>
                             <li class="nav-item">
                                 <button class="nav-link pl-0 pr-0" aria-label="Switch to My Help page"><a href="help.php">Help</a></button>
