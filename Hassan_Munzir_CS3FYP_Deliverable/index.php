@@ -57,7 +57,7 @@ if (isset($_SESSION['flash'])) {
                             <button class="nav-link pl-0 pr-0 active">Home</button>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link pl-0 pr-0"><a href="resumes.php">Create a Resume</a></button>
+                            <button class="nav-link pl-0 pr-0"><a href="builder.php">Create a Resume</a></button>
                         </li>
                         <li class="nav-item">
                             <button class="nav-link pl-0 pr-0"><a href="help.php">Help</a></button>
